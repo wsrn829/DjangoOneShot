@@ -39,7 +39,7 @@ urlpatterns = [
 ]
 ```
 
-### Add to middleware
+### Add to MIDDLEWARE
 
 Add it to your `MIDDLEWARE` setting in `settings.py`:
 
@@ -51,7 +51,7 @@ MIDDLEWARE = [
 ]
 ```
 
-### Add to INTERNAL IPs
+### Add to INTERNAL_IPS
 
 Add the following to `settings.py`:
 
