@@ -6,6 +6,8 @@ Complete the project specs from Learn.
 
 ### Install Django Debug Toolbar
 
+This toolbar will help you have visibility such as over your context in templates and the queries that are running to get your model data.
+
 https://django-debug-toolbar.readthedocs.io/en/latest/
 
 ### Pip Install
