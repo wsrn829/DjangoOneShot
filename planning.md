@@ -30,17 +30,21 @@ How do I access the model instances of the reverse relationship of a many to man
 
 ---
 
+---
+
 ## Bonus instructions:
 
 ### Install Django Debug Toolbar
 
 https://django-debug-toolbar.readthedocs.io/en/latest/
 
+### Pip Install
+
 ```bash
 python -m pip install django-debug-toolbar
 ```
 
-### 3. Install the App
+### Install the App
 
 Add `"debug_toolbar"` to your `INSTALLED_APPS` setting:
 
@@ -50,10 +54,11 @@ INSTALLED_APPS = [
     "debug_toolbar",
     # ...
 ]
-
 ```
 
-Add django-debug-toolbar’s URLs to your project’s URLconf:
+### Add to urls
+
+Add django-debug-toolbar’s URLs to your project’s URLconf `urls.py`:
 
 ```python
 from django.urls import include, path
@@ -62,10 +67,11 @@ urlpatterns = [
     # ...
     path('__debug__/', include('debug_toolbar.urls')),
 ]
-
 ```
 
-The Debug Toolbar is mostly implemented in a middleware. Add it to your `MIDDLEWARE` setting:
+### Add to middleware
+
+Add it to your `MIDDLEWARE` setting in `settings.py`:
 
 ```python
 MIDDLEWARE = [
@@ -75,7 +81,9 @@ MIDDLEWARE = [
 ]
 ```
 
-The Debug Toolbar is shown only if your IP address is listed in Django’s [`INTERNAL_IPS`](https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INTERNAL_IPS "(in Django v4.2)") setting. This means that for local development, you _must_ add `"127.0.0.1"` to [`INTERNAL_IPS`](https://docs.djangoproject.com/en/dev/ref/settings/#std-setting-INTERNAL_IPS "(in Django v4.2)"). You’ll need to create this setting if it doesn’t already exist in your settings module:
+### Add to INTERNAL IPs
+
+Add the following to `settings.py`:
 
 ```python
 INTERNAL_IPS = [
@@ -83,6 +91,5 @@ INTERNAL_IPS = [
     "127.0.0.1",
     # ...
 ]
-
 ```
 
