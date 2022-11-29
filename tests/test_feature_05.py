@@ -205,18 +205,3 @@ class TestTodoItemModel(TestCase):
             )
         except AttributeError:
             self.fail("Could not find 'TodoItem.list'")
-
-    def test_todoitem_str_method_returns_task(self):
-        try:
-            from todos.models import TodoItem
-
-            todoitem = TodoItem(task="My item")
-            self.assertEqual(
-                str(todoitem),
-                "My item",
-                msg="TodoItem.__str__ does not return the value of TodoItem.name",  # noqa: E501
-            )
-        except ModuleNotFoundError:
-            self.fail("Could not find 'todos.models'")
-        except ImportError:
-            self.fail("Could not find 'todos.models.TodoItem'")
