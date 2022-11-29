@@ -1,58 +1,86 @@
-from django.urls import reverse_lazy
-from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
-from django.views.generic.list import ListView
+from django.shortcuts import render, redirect
 
 from todos.models import TodoItem, TodoList
+from todos.forms import TodoItemForm, TodoListForm
 
 
-class TodoListListView(ListView):
-    model = TodoList
-    template_name = "todo_lists/list.html"
+def todo_list_list(request):
+    lists = TodoList.objects.all()
+    context = {
+        "lists": lists,
+    }
+    return render(request, "todo_lists/list.html", context)
 
 
-class TodoListDetailView(DetailView):
-    model = TodoList
-    template_name = "todo_lists/detail.html"
+def todo_list_detail(request, id):
+    list = TodoList.objects.get(id=id)
+    context = {
+        "list": list,
+    }
+    return render(request, "todo_lists/detail.html", context)
 
 
-class TodoListCreateView(CreateView):
-    model = TodoList
-    template_name = "todo_lists/create.html"
-    fields = ["name"]
-
-    def get_success_url(self):
-        return reverse_lazy("todo_list_detail", args=[self.object.id])
-
-
-class TodoListUpdateView(UpdateView):
-    model = TodoList
-    template_name = "todo_lists/update.html"
-    fields = ["name"]
-
-    def get_success_url(self):
-        return reverse_lazy("todo_list_detail", args=[self.object.id])
+def todo_list_create(request):
+    if request.method == "POST":
+        form = TodoListForm(request.POST)
+        if form.is_valid():
+            list = form.save()
+            return redirect("todo_list_detail", id=list.id)
+    else:
+        form = TodoListForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "todo_lists/create.html", context)
 
 
-class TodoListDeleteView(DeleteView):
-    model = TodoList
-    template_name = "todo_lists/delete.html"
-    success_url = reverse_lazy("todo_list_list")
+def todo_list_update(request, id):
+    list = TodoList.objects.get(id=id)
+    if request.method == "POST":
+        form = TodoListForm(request.POST, instance=list)
+        if form.is_valid():
+            list = form.save()
+            return redirect("todo_list_detail", id=list.id)
+    else:
+        form = TodoListForm(instance=list)
+    context = {
+        "form": form,
+    }
+    return render(request, "todo_lists/update.html", context)
 
 
-class TodoItemCreateView(CreateView):
-    model = TodoItem
-    template_name = "todo_items/create.html"
-    fields = ["task", "due_date", "is_completed", "list"]
+def todo_list_delete(request, id):
+    if request.method == "POST":
+        list = TodoList.objects.get(id=id)
+        list.delete()
+        return redirect("todo_list_list")
+    return render(request, "todo_lists/delete.html")
 
-    def get_success_url(self):
-        return reverse_lazy("todo_list_detail", args=[self.object.list.id])
+
+def todo_item_create(request):
+    if request.method == "POST":
+        form = TodoItemForm(request.POST)
+        if form.is_valid():
+            item = form.save()
+            return redirect("todo_list_detail", id=item.list.id)
+    else:
+        form = TodoItemForm()
+    context = {
+        "form": form,
+    }
+    return render(request, "todo_items/create.html", context)
 
 
-class TodoItemUpdateView(UpdateView):
-    model = TodoItem
-    template_name = "todo_items/update.html"
-    fields = ["task", "due_date", "is_completed", "list"]
-
-    def get_success_url(self):
-        return reverse_lazy("todo_list_detail", args=[self.object.list.id])
+def todo_item_update(request, id):
+    item = TodoItem.objects.get(id=id)
+    if request.method == "POST":
+        form = TodoItemForm(request.POST, instance=item)
+        if form.is_valid():
+            item = form.save()
+            return redirect("todo_list_detail", id=item.list.id)
+    else:
+        form = TodoItemForm(instance=item)
+    context = {
+        "form": form,
+    }
+    return render(request, "todo_items/update.html", context)

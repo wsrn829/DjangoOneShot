@@ -3,12 +3,12 @@
 {% block content %}
   <main>
     <div>
-      <h1>{{ todolist.name }}</h1>
+      <h1>{{ list.name }}</h1>
       <p>
-        <a href="{% url 'todo_list_update' todolist.id %}">Edit</a>
+        <a href="{% url 'todo_list_update' list.id %}">Edit</a>
       </p>
       <p>
-        <a href="{% url 'todo_list_delete' todolist.id %}">Delete</a>
+        <a href="{% url 'todo_list_delete' list.id %}">Delete</a>
       </p>
       <h2>Tasks</h2>
       <table>
@@ -19,7 +19,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for item in todolist.items.all %}
+          {% for item in list.items.all %}
             <tr>
               <td>
                 <a href="{% url 'todo_item_update' item.id %}">{{ item.task }}</a>

@@ -18,7 +18,7 @@
           </tr>
         </thead>
         <tbody>
-          {% for list in todolist_list %}
+          {% for list in lists %}
             <tr>
               <td>
                 <a href="{% url 'todo_list_detail' list.id %}">{{ list.name }}</a>
@@ -28,5 +28,6 @@
           {% endfor %}
         </tbody>
       </table>
-    </main>
-  {% endblock content %}
+    </div>
+  </main>
+{% endblock content %}
