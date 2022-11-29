@@ -105,18 +105,3 @@ class TestTodoListModel(TestCase):
             self.fail("Could not find 'todos.models.TodoList'")
         except AttributeError:
             self.fail("Could not find 'TodoList.created_on'")
-
-    def test_project_str_method_returns_name(self):
-        try:
-            from todos.models import TodoList
-
-            project = TodoList(name="My project")
-            self.assertEqual(
-                str(project),
-                "My project",
-                msg="TodoList.__str__ does not return the value of TodoList.name",  # noqa: E501
-            )
-        except ModuleNotFoundError:
-            self.fail("Could not find 'todos.models'")
-        except ImportError:
-            self.fail("Could not find 'todos.models.TodoList'")
