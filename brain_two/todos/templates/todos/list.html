@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <div>
+        <h1>My Lists</h1>
+        <table>
+            <tr>
+                <thead>
+                    <td>Name</td>
+                    <td>Number of items</td>
+                </thead>
+            </tr>
+            {% for list in todo_list %}
+            <tr>
+                <tbody>
+                    <td>{{ list.name }}</td>
+                </tbody>
+            </tr>
+            {% endfor %}
+        </table>
+        </table>
+    </div>
+</main>
+{% endblock content %}
