@@ -5,19 +5,19 @@
     <div>
         <h1>My Lists</h1>
         <table>
-            <tr>
-                <thead>
+            <thead>
+                <tr>
                     <td>Name</td>
                     <td>Number of items</td>
-                </thead>
-            </tr>
-            {% for list in todo_list %}
-            <tr>
-                <tbody>
-                    <td>{{ list.name }}</td>
-                </tbody>
-            </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for item in todo_list %}
+                <tr>
+                    <td><a href="% url 'todo_list_detail' item.id %">{{ item.name }}</a></td>
+                    <td>{{ item.items.all|length }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
         </table>
     </div>

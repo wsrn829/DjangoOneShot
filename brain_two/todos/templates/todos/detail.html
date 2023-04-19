@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main>
+    <div>
+        {% for item in todo_object.items %}
+        <h1>{{ item.list}}</h1>
+        {% endfor %}
+        <h2>Tasks</h2>
+        <table>
+            <tr>
+                <thead>
+                    <td>Task</td>
+                    <td>Due date</td>
+                </thead>
+                <tbody>
+                    {% for item in todo_list %}
+                    <tr>
+                        <td>{{ item.task }}</td>
+                        <td>{{ item.due_date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </tr>
+        </table>
+    </div>
+</main>
+{% endblock content %}
